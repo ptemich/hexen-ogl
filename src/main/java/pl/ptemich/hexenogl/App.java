@@ -2,10 +2,13 @@ package pl.ptemich.hexenogl;
 
 import com.jogamp.opengl.*;
 import com.jogamp.opengl.awt.GLCanvas;
+import com.jogamp.opengl.util.FPSAnimator;
 
 import javax.swing.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-public class App implements GLEventListener {
+public class App  {
 
     public static void main(String[] args) {
         //getting the capabilities object of GL2 profile
@@ -14,9 +17,9 @@ public class App implements GLEventListener {
 
         // The canvas
         final GLCanvas glcanvas = new GLCanvas(capabilities);
-        App b = new App();
-        glcanvas.addGLEventListener(b);
-        glcanvas.setSize(400, 400);
+        GlDrawer drawer = new GlDrawer();
+        glcanvas.addGLEventListener(drawer);
+        glcanvas.setSize(600, 600);
 
         //creating frame
         final JFrame frame = new JFrame(" Basic Frame");
@@ -25,40 +28,13 @@ public class App implements GLEventListener {
         frame.getContentPane().add(glcanvas);
         frame.setSize(frame.getContentPane().getPreferredSize());
         frame.setVisible(true);
-    }
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setAlwaysOnTop(true);
+        frame.setLocation(100, 100);
 
-    @Override
-    public void display(GLAutoDrawable drawable) {
-        final GL2 gl = drawable.getGL().getGL2();
-        gl.glBegin( GL2.GL_TRIANGLES );
-
-        // Drawing Using Triangles
-
-        gl.glColor3f( 1.0f, 0.0f, 0.0f );   // Red
-        gl.glVertex3f( 0.5f,0.7f,0.0f );    // Top
-
-        gl.glColor3f( 0.0f,1.0f,0.0f );     // green
-        gl.glVertex3f( -0.2f,-0.50f,0.0f ); // Bottom Left
-
-        gl.glColor3f( 0.0f,0.0f,1.0f );     // blue
-        gl.glVertex3f( 0.5f,-0.5f,0.0f );   // Bottom Right
-
-        gl.glEnd();
-    }
-
-    @Override
-    public void dispose(GLAutoDrawable drawable) {
-        //method body
-    }
-
-    @Override
-    public void init(GLAutoDrawable drawable) {
-        // method body
-    }
-
-    @Override
-    public void reshape(GLAutoDrawable arg0, int arg1, int arg2, int arg3, int arg4) {
-        // method body
+        //Instantiating and Initiating Animator
+        //final FPSAnimator animator = new FPSAnimator(glcanvas, 300,true);
+        //animator.start();
     }
 
 }
